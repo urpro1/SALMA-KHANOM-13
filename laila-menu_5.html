@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Laila Restaurant &amp; Café — Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cairo:wght@500;600;700;800&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-deep:#234c41;
+  --teal:#3c7a68;
+  --gold-deep:#a9702f;
+  --gold:#cf9a4c;
+  --gold-light:#e7bd77;
+  --cream:#f7ecd7;
+  --paper:#fbf4e6;
+  --ink:#2c2213;
+  --ink-soft:#5c4c33;
+}
+*{box-sizing:border-box;}
+html,body{
+  min-height:100%; margin:0; overflow-x:hidden; overflow-y:auto; overscroll-behavior:none;
+  background:var(--teal-deep); color:var(--ink);
+  font-family:'EB Garamond', serif; font-weight:600;
+}
+.ar{font-family:'Cairo',sans-serif; direction:rtl; font-weight:700;}
+.display{font-family:'Cormorant Garamond', serif; font-weight:700;}
+.script{font-family:'Tangerine', cursive;}
+
+.app{ display:flex; flex-direction:column; min-height:100vh; min-height:100dvh; }
+
+/* ============ TOP BAR (20%) ============ */
+.topbar{
+  flex:0 0 auto;
+  height:24vh; min-height:160px; max-height:250px;
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  background:
+    linear-gradient(155deg, rgba(35,76,65,.86), rgba(60,122,104,.68)),
+    linear-gradient(to bottom, transparent 55%, rgba(247,236,215,.22) 100%),
+    url('https://commons.wikimedia.org/wiki/Special:FilePath/A%20cozy%20outdoor%20seating%20area%20features%20a%20wooden%20table%20and%20chairs%20under%20a%20tall%20umbrella.jpg?width=1200') center/cover;
+  background-color:#4c7f6c;
+}
+.topbar-wave{position:absolute; left:0; right:0; bottom:-1px; line-height:0; z-index:3; pointer-events:none;}
+.topbar-inner{
+  position:relative; z-index:2; width:100%; max-width:900px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:0 5vw; color:var(--paper);
+}
+.tb-brand{display:flex; flex-direction:column; align-items:flex-start; gap:0; flex-shrink:0;}
+.tb-brand .script{font-size:2.6rem; line-height:.85; color:var(--paper);}
+.tb-brand small{font-family:'Cairo',sans-serif; letter-spacing:.25em; font-size:.55rem; opacity:.85; margin-top:2px;}
+.tb-welcome{font-family:'Cairo',sans-serif; font-size:.72rem; opacity:.9; margin-top:6px; letter-spacing:.02em;}
+
+.tb-contact{display:flex; flex-direction:column; gap:6px; align-items:flex-end; text-align:right; font-size:.78rem;}
+.tb-contact a{color:var(--paper); text-decoration:none; display:flex; align-items:center; gap:6px; direction:ltr;}
+.tb-contact a svg{flex-shrink:0; opacity:.9;}
+.tb-contact .addr{font-family:'Cairo',sans-serif; font-size:.7rem; opacity:.9; direction:rtl;}
+.tb-social{display:flex; gap:8px; margin-top:2px;}
+.tb-social a{
+  width:26px; height:26px; border-radius:50%; border:1px solid rgba(251,244,230,.5);
+  display:flex; align-items:center; justify-content:center; color:var(--paper);
+}
+
+@media(max-width:640px){
+  .tb-brand .script{font-size:1.9rem;}
+  .tb-welcome{display:none;}
+  .tb-contact{font-size:.66rem;}
+  .tb-contact .addr{font-size:.6rem;}
+  .topbar-inner{padding:0 4vw;}
+}
+
+/* ============ BOOK STAGE ============ */
+.book-stage{
+  flex:0 0 auto; min-height:92vh; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35,76,65,.06), transparent 55%),
+    var(--paper);
+  display:flex; align-items:center; justify-content:center;
+  padding:5vh 0 7vh;
+}
+.book-stage .texture{position:absolute; inset:0; pointer-events:none;}
+
+#book{
+  position:relative;
+  perspective:2200px;
+  transition:width .5s cubic-bezier(.6,0,.3,1), height .5s cubic-bezier(.6,0,.3,1);
+}
+
+/* --- Cover --- */
+.cover{
+  position:absolute; inset:0; cursor:pointer;
+  border-radius:4px;
+  background:radial-gradient(ellipse at 50% 32%, #d9a85e 0%, #c98a45 46%, #b8752f 100%);
+  box-shadow:0 18px 40px -14px rgba(20,14,4,.55), 0 2px 0 rgba(255,255,255,.15) inset;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; color:var(--paper); overflow:hidden;
+  transition:transform .6s cubic-bezier(.6,0,.3,1), opacity .5s ease;
+  transform-origin:left center;
+}
+.cover.opening{transform:rotateY(-115deg); opacity:0; pointer-events:none;}
+.cover .moon{
+  position:absolute; width:70%; padding-bottom:70%; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, rgba(255,247,228,.5), rgba(255,247,228,.06) 60%, transparent 72%);
+  bottom:-30%; left:50%; transform:translateX(-50%);
+}
+.cover .mark{font-family:'Cairo',sans-serif; letter-spacing:.32em; font-size:.6rem; opacity:.85; z-index:2;}
+.cover .script{font-size:3.6rem; line-height:.85; z-index:2; text-shadow:0 6px 22px rgba(40,26,8,.3);}
+.cover .sub{font-family:'Cairo',sans-serif; letter-spacing:.35em; font-size:.5rem; color:var(--teal-deep); margin-top:4px; z-index:2;}
+.cover .tag{font-style:italic; font-size:.8rem; margin-top:16px; opacity:.9; z-index:2;}
+.cover .welcome{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:.85rem; color:var(--teal-deep); margin-top:8px; z-index:2;}
+.cover .hint{
+  position:absolute; bottom:6%; font-family:'Cairo',sans-serif; font-size:.6rem;
+  letter-spacing:.1em; opacity:.8; z-index:2; animation:pulse 2s infinite ease-in-out;
+}
+@keyframes pulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+.cover-spine{
+  position:absolute; left:0; top:0; bottom:0; width:16px;
+  background:linear-gradient(90deg, rgba(0,0,0,.35), transparent);
+}
+
+/* --- Open book --- */
+.spread{
+  position:absolute; inset:0; display:flex;
+  border-radius:4px; overflow:hidden;
+  box-shadow:0 18px 46px -16px rgba(20,14,4,.55);
+  opacity:0; pointer-events:none;
+  transform:rotateY(0deg); transform-origin:center center;
+  transition:opacity .75s ease, transform .75s cubic-bezier(.45,0,.2,1);
+  backface-visibility:hidden;
+}
+.spread.active{opacity:1; pointer-events:auto; transform:rotateY(0deg); z-index:3;}
+.spread.exit-fwd{opacity:0; transform:rotateY(-95deg); z-index:1;}
+.spread.exit-back{opacity:0; transform:rotateY(95deg); z-index:1;}
+.spread.enter-fwd{opacity:0; transform:rotateY(95deg); z-index:2;}
+.spread.enter-back{opacity:0; transform:rotateY(-95deg); z-index:2;}
+.spread::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, rgba(0,0,0,.35), transparent 12%, transparent 88%, rgba(0,0,0,.35));
+  opacity:0; transition:opacity .75s ease;
+}
+.spread.exit-fwd::after, .spread.exit-back::after, .spread.enter-fwd::after, .spread.enter-back::after{opacity:1;}
+.spread .page{
+  flex:1 1 50%; height:100%; overflow-y:auto; overflow-x:hidden;
+  padding:4.5% 5%; position:relative;
+  -webkit-overflow-scrolling:touch;
+}
+.spread .page::-webkit-scrollbar{width:4px;}
+.spread .page::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15); border-radius:4px;}
+.spread .page.left{ box-shadow: inset -10px 0 18px -14px rgba(0,0,0,.35); }
+.spread .page.right{ box-shadow: inset 10px 0 18px -14px rgba(0,0,0,.35); }
+.page.band-teal{background:linear-gradient(155deg,var(--teal-deep),var(--teal) 70%); color:var(--paper);}
+.page.band-gold{background:linear-gradient(155deg,#e3ab5f,#c1934d 70%); color:var(--ink);}
+.page.band-cream{background:var(--paper); color:var(--ink);}
+.page.blank{display:flex; align-items:center; justify-content:center;}
+
+.tap-zone{position:absolute; top:0; bottom:0; width:16%; z-index:5; cursor:pointer;}
+.tap-zone.tz-left{left:0;}
+.tap-zone.tz-right{right:0;}
+
+.page-run{
+  font-family:'Cairo',sans-serif; font-size:.6rem; letter-spacing:.15em; text-align:center;
+  opacity:.75; margin-bottom:6px; text-transform:uppercase;
+}
+.page-title{text-align:center; margin-bottom:8px;}
+.page-title h3.display{font-size:1.5rem; margin:0; font-weight:700; line-height:1.1;}
+.page-title .ar{font-size:.95rem; display:block; margin-top:2px;}
+.page-title .rule{width:34px; height:2px; background:currentColor; opacity:.4; margin:6px auto 0; border-radius:2px;}
+
+.group-title{font-size:1rem; font-weight:700; text-align:center; margin:6px 0 6px;}
+.group-title .ar{font-size:.76rem; display:block; opacity:.9; font-weight:600; margin-top:1px;}
+
+.row{padding:5px 0; border-bottom:1px dashed currentColor; opacity:1; font-size:.86rem;}
+.row:last-child{border-bottom:none;}
+.row-top{display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
+.row-name{font-weight:700; line-height:1.22;}
+.row-name .ar{font-size:.86em; font-weight:700; opacity:.92; display:block; margin-top:1px;}
+.row-price{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.05em; white-space:nowrap;}
+.row-desc{font-size:.82em; font-weight:600; font-style:italic; opacity:.88; margin-top:1px; line-height:1.32;}
+
+.page-num{
+  position:absolute; bottom:2%; left:0; right:0; text-align:center;
+  font-family:'Cormorant Garamond',serif; font-size:.7rem; opacity:.55; font-weight:700;
+}
+
+.photo-tip{
+  width:64px; height:64px; margin:0 auto 6px; position:relative;
+  filter:drop-shadow(0 6px 10px rgba(20,14,4,.3));
+}
+.photo-tip img{width:100%; height:100%; object-fit:cover; display:block;}
+.photo-tip.torn-a img,.photo-tip.torn-a{clip-path:polygon(3% 12%,9% 4%,18% 9%,27% 2%,38% 8%,47% 1%,58% 7%,68% 2%,79% 9%,89% 3%,97% 11%,100% 22%,94% 33%,99% 44%,93% 55%,98% 67%,91% 77%,96% 88%,86% 96%,75% 91%,64% 98%,53% 92%,42% 99%,31% 93%,20% 98%,10% 90%,2% 95%,0% 83%,6% 71%,1% 60%,7% 49%,2% 38%,8% 27%,1% 19%);}
+.photo-tip.torn-b img,.photo-tip.torn-b{clip-path:polygon(6% 2%,16% 8%,25% 1%,36% 7%,46% 2%,57% 9%,66% 3%,77% 8%,88% 1%,96% 10%,100% 21%,95% 32%,100% 43%,94% 54%,99% 66%,92% 76%,97% 87%,88% 97%,77% 92%,66% 99%,55% 93%,44% 98%,33% 91%,22% 97%,11% 92%,1% 96%,4% 84%,0% 72%,5% 60%,1% 48%,6% 37%,0% 25%,4% 14%);}
+.photo-cap{text-align:center; font-size:.55rem; font-style:italic; opacity:.6; margin-top:-6px; margin-bottom:6px;}
+
+/* --- Nav arrows --- */
+.book-nav{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+  width:38px; height:38px; border-radius:50%; border:1px solid rgba(44,34,19,.25);
+  background:rgba(251,244,230,.85); color:var(--teal-deep);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  box-shadow:0 6px 14px rgba(20,14,4,.2); opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.book-nav.show{opacity:1; pointer-events:auto;}
+.book-nav.prev{left:calc(50% - 46vh - 26px);}
+.book-nav.next{right:calc(50% - 46vh - 26px);}
+@media(max-width:900px){
+  .book-nav.prev{left:6px;}
+  .book-nav.next{right:6px;}
+}
+
+.book-close{
+  position:absolute; top:-14px; right:-14px; z-index:11;
+  width:30px; height:30px; border-radius:50%; background:var(--teal-deep); color:var(--gold-light);
+  border:1px solid rgba(231,189,119,.5); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:.85rem; opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.book-close.show{opacity:1; pointer-events:auto;}
+
+.page-indicator{
+  position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+  font-family:'Cairo',sans-serif; font-size:.62rem; color:var(--ink-soft); opacity:0; transition:opacity .3s;
+  background:rgba(251,244,230,.85); padding:3px 10px; border-radius:999px;
+}
+.page-indicator.show{opacity:.85;}
+
+.site-footer{
+  flex:0 0 auto; background:var(--teal-deep); color:var(--cream);
+  text-align:center; padding:5vh 20px 6vh;
+}
+.site-footer .script{font-size:2rem; color:var(--gold-light); display:block;}
+.site-footer div{font-family:'Cairo',sans-serif; font-size:.7rem; opacity:.75; margin-top:6px; letter-spacing:.03em;}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="tb-brand">
+        <span class="script">Laila</span>
+        <small>RESTAURANT &amp; CAFÉ</small>
+        <div class="tb-welcome">Welcome Home — أهلاً بكم في بيتكم</div>
+      </div>
+      <div class="tb-contact">
+        <a href="tel:+962792345655">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          0792345655
+        </a>
+        <a href="https://www.google.com/maps/place/Laila+Restaurant+%26+Cafe/@31.9764981,35.8607098,17z/data=!3m1!4b1!4m6!3m5!1s0x151ca1006f81f589:0x878142e1da967c7e!8m2!3d31.9764981!4d35.8632847!16s%2Fg%2F11xtrnn6r_" target="_blank" rel="noopener" class="addr">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Mecca Street - behind Hejaz Towers
+        </a>
+        <div class="tb-social">
+          <a href="https://www.instagram.com/laila.restaurantcafe/" target="_blank" rel="noopener" title="@laila.restaurantcafe">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <svg class="topbar-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" style="width:100%; height:60px;">
+      <path d="M0,45 C120,85 260,10 420,42 C580,74 700,18 860,46 C1020,74 1160,20 1320,44 C1380,54 1420,50 1440,48 L1440,90 L0,90 Z" fill="#f7ecd7"></path>
+    </svg>
+  </div>
+
+  <div class="book-stage" id="bookStage">
+    <div class="texture"></div>
+    <div id="book">
+      <div class="cover" id="cover">
+        <div class="cover-spine"></div>
+        <span class="mark">RESTAURANT &amp; CAFÉ</span>
+        <div class="script">Laila</div>
+        <div class="sub">MENU</div>
+        <div class="moon"></div>
+        <div class="tag">A Taste You Will Remember</div>
+        <div class="welcome">Welcome Home</div>
+        <div class="hint">✦ اضغط لتفتح المنيو ✦</div>
+      </div>
+      <div id="spreadsRoot"></div>
+      <div class="book-nav prev" id="navPrev">&#10094;</div>
+      <div class="book-nav next" id="navNext">&#10095;</div>
+      <div class="book-close" id="navClose">✕</div>
+      <div class="page-indicator" id="pageIndicator"></div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <span class="script">Laila</span>
+    <div>Restaurant &amp; Café — A Taste You Will Remember</div>
+  </footer>
+</div>
+
+<script>
+const SECTIONS = [
+{
+  id:'salads', band:'teal', eyebrow:'GARDEN &amp; BROTH',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Greek%20Salad%20from%20Thessaloniki.jpg?width=500',
+  titleEn:'Salads &amp; Soup', titleAr:'سلطات وشوربة',
+  accents:[
+    {icon:'ic-leaf', sw:['#e7bd77','#a9702f'], top:'6%', side:'left', x:'2%', rot:-8, size:96},
+    {icon:'ic-bowl', sw:['#5f9a86','#234c41'], top:'46%', side:'right', x:'3%', rot:10, size:88},
+  ],
+  groups:[
+    {items:[
+      {en:"Soup of the Day", ar:"شوربة اليوم", price:"3.00"},
+      {en:"Laila's Salad", ar:"سلطة لبلا", desc:"Chicken breast, herbs, lettuce, and rocca with special dressing", price:"5.75"},
+      {en:"Santa Fe Salad", ar:"سلطة سانتافيه", desc:"Grilled chicken breast with lettuce, red beans, corn, cheddar cheese, tortilla chips &amp; mexican dressing", price:"5.70"},
+      {en:"Caprese Salad", ar:"سلطة كبريز", desc:"Fresh mozzarella, tomatoes, rocca, and pesto dressing", price:"5.50"},
+      {en:"Quinoa Salad", ar:"سلطة الكينوا", desc:"Quinoa, lettuce, cherry tomatoes, feta cheese, and special dressing", price:"5.50"},
+      {en:"Halloumi Salad", ar:"سلطة الحلوم", desc:"Halloumi cheese with lettuce, cucumbers, sundried tomatoes, and special dressing", price:"4.50"},
+      {en:"Shrimp &amp; Rocca Salad", ar:"سلطة الروبيان والجرجير", desc:"Shrimp (5 pcs), mushroom, rocca and balsamic dressing", price:"5.50"},
+    ]},
+    {titleEn:"Classic Salads", titleAr:"سلطات كلاسيكية", items:[
+      {en:"Caesar Salad", ar:"سلطة سيزر", price:"3.25"},
+      {en:"Chicken Caesar Salad", ar:"سلطة السيزر بالدجاج", price:"4.75"},
+      {en:"Tabbouleh Lebanese", ar:"تبولة لبنانية", price:"3.75"},
+      {en:"Greek Salad", ar:"سلطة يونانية", price:"4.00"},
+      {en:"Fattoush", ar:"فتوش", price:"4.00"},
+    ]},
+  ]
+},
+{
+  id:'appetizers', band:'gold', eyebrow:'TO BEGIN',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Hummus%20Dip%20(30863436677).jpg?width=500',
+  titleEn:'Appetizers', titleAr:'مقبلات',
+  accents:[
+    {icon:'ic-bowl', sw:['#3c7a68','#234c41'], top:'8%', side:'right', x:'4%', rot:12, size:92},
+    {icon:'ic-chicken', sw:['#a9702f','#7a4e1c'], top:'52%', side:'left', x:'2%', rot:-14, size:98},
+  ],
+  groups:[
+    {titleEn:"Cold Appetizers", titleAr:"مقبلات باردة", items:[
+      {en:"Yalanji", ar:"يلنجي", desc:"Grape leaves stuffed with rice in extra virgin olive oil", price:"4.30"},
+      {en:"Mutabal", ar:"متبل", desc:"Grilled eggplant with tahini, lemon and olive oil", price:"2.90"},
+      {en:"Hummos with Meat", ar:"حمص باللحمة", desc:"Hummos topped with sautéed veal and almonds", price:"3.75"},
+      {en:"Hummos", ar:"حمص", desc:"Creamy plain hummus / basil / pekmez", price:"2.85"},
+      {en:"Labneh Balls", ar:"كرات لبنة", desc:"Goat milk labneh with rocca and olive oil", price:"3.95"},
+    ]},
+    {titleEn:"Hot Appetizers", titleAr:"مقبلات ساخنة", items:[
+      {en:"Freekeh Bil Fukhara", ar:"فريكة بالفخار", desc:"Freekeh served with white sauce and parmesan cheese", price:"5.75"},
+      {en:"Eggplant Sajiyyeh", ar:"صاجية الباذنجان", desc:"Eggplant with white sauce, kashkawan cheese, and beef fillet", price:"5.75"},
+      {en:"Quesadilla", ar:"كساديا", desc:"Grilled chicken with melted mixed cheese, sweet corn, and bell peppers in warm tortilla bread", price:"4.75"},
+      {en:"Khashlama", ar:"خشلمة", desc:"Beef fillet shredded with mashed potatoes and rich gravy sauce", price:"5.75"},
+      {en:"Dynamite Shrimp", ar:"دايناميت شرمب", desc:"Shrimp with dynamite sauce", price:"5.75"},
+      {en:"Classic Nachos", ar:"كلاسيك ناتشوز", desc:"Tortilla chips, mixed cheese, Mexican sauce, and jalapeño", price:"5.75"},
+      {en:"Crispy Halloumi", ar:"كريسبي حلوم", desc:"Grilled halloumi cheese with rocca and pesto sauce", price:"3.90"},
+      {en:"Kibdeh", ar:"كبدة طائر", desc:"Chicken liver with onions or pomegranate molasses", price:"4.25"},
+    ]},
+  ]
+},
+{
+  id:'sandwiches', band:'cream', eyebrow:'HANDHELD',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Home%20made%20Chicken%20Burger.jpg?width=500',
+  titleEn:'Sandwiches &amp; Burgers', titleAr:'ساندويشات وبرغر',
+  accents:[
+    {icon:'ic-bread', sw:['#cf9a4c','#a9702f'], top:'6%', side:'left', x:'3%', rot:-10, size:92},
+    {icon:'ic-burger', sw:['#3c7a68','#234c41'], top:'55%', side:'right', x:'3%', rot:9, size:96},
+  ],
+  groups:[
+    {titleEn:"Sandwiches", titleAr:"ساندويشات", items:[
+      {en:"Laila's Chicken", ar:"دجاج لبلا", desc:"Chicken breast, mushroom, sweet peppers, mozzarella cheese and special sauce", price:"5.00"},
+      {en:"Laila's Steak", ar:"ستيك لبلا", desc:"Beef fillet, mushroom, sweet peppers, mozzarella cheese and special sauce", price:"5.50"},
+      {en:"Crunchy Chicken Sandwich", ar:"كرنشي تشيكن", desc:"Crispy chicken breast with smoked turkey, cheddar cheese, pickles, mayo or buffalo sauce", price:"4.75"},
+      {en:"Classic Halloumi", ar:"كلاسيك حلوم", desc:"Halloumi cheese, lettuce, tomatoes, cucumbers, sundried tomatoes and special sauce", price:"3.90"},
+      {en:"Classic Fajita Wrap", ar:"كلاسيك فاهيتا راب", desc:"Grilled chicken, sweet peppers, tortilla bread, mixed cheese with special sauce", price:"4.50"},
+    ]},
+    {titleEn:"Burgers", titleAr:"برغر", items:[
+      {en:"Laila's Burger", ar:"برغر لبلا", desc:"Beef (150g), lettuce, tomatoes, onions, cheddar cheese, pickles, special sauce", price:"5.90"},
+      {en:"Classic Burger", ar:"كلاسيك برغر", desc:"Beef (150g), lettuce &amp; cheddar cheese", price:"5.50"},
+      {en:"Lettuce Burger", ar:"لتيس برغر", desc:"Beef (150g), lettuce, onions, cheddar cheese, pickles, special sauce", price:"5.25"},
+      {en:"Crunchy Chicken Burger", ar:"كرنشي تشيكن برغر", desc:"Crispy chicken breast, smoked turkey, pickles, mayo or buffalo sauce", price:"4.90"},
+    ]},
+  ]
+},
+{
+  id:'pizza-pasta', band:'teal', eyebrow:'FROM THE OVEN',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Gemignani%20Margherita%20Pizza.JPG?width=500',
+  titleEn:'Pizza &amp; Pasta', titleAr:'بيتزا وباستا',
+  accents:[
+    {icon:'ic-pizza', sw:['#e7bd77','#a9702f'], top:'8%', side:'right', x:'2%', rot:14, size:96},
+    {icon:'ic-pasta', sw:['#5f9a86','#234c41'], top:'58%', side:'left', x:'3%', rot:-9, size:92},
+  ],
+  groups:[
+    {titleEn:"Pizza", titleAr:"بيتزا", items:[
+      {en:"Laila's Chicken Pizza", ar:"بيتزا لبلا", desc:"Tomato sauce, chicken breast, mushroom, bell peppers, black olives, mozzarella cheese and oregano", price:"5.75"},
+      {en:"Margherita Pizza", ar:"بيتزا مارغريتا", desc:"Tomato sauce, mozzarella cheese and oregano", price:"4.50"},
+      {en:"Vegetarian Pizza", ar:"بيتزا خضار", desc:"Tomato sauce, mushroom, bell peppers, black olives, mozzarella cheese and oregano", price:"4.90"},
+      {en:"Zinger Pizza", ar:"بيتزا زنجر", desc:"Crispy chicken, mixed cheese, smoked turkey, lettuce, pickles and mayo sauce", price:"5.50"},
+      {en:"BBQ Chicken Pizza", ar:"بيتزا باربيكيو تشيكن", desc:"BBQ sauce, mushroom, chicken breast, mozzarella cheese and oregano", price:"5.50"},
+      {en:"Pesto Chicken Pizza", ar:"بيتزا بيستو تشيكن", desc:"Chicken breast, mozzarella cheese, and creamy pesto sauce", price:"5.50"},
+    ]},
+    {titleEn:"Pasta", titleAr:"باستا", items:[
+      {en:"Fettuccine Alfredo", ar:"فيتوتشيني ألفريدو", desc:"Grilled chicken breast, mushroom, white sauce and parmesan cheese", price:"4.90"},
+      {en:"Penne Arrabbiata", ar:"بينيه أرابياتا", desc:"Tomato sauce, parmesan cheese, hot peppers", price:"4.25"},
+      {en:"Cannelloni Pasta", ar:"باستا كانيلوني", desc:"Ricotta cheese, spinach, pine nuts, parmesan cheese and pink sauce", price:"5.25"},
+      {en:"Penne Rose", ar:"بينيه روزيه", desc:"Tomato sauce, white sauce, parmesan cheese", price:"4.00"},
+    ]},
+  ]
+},
+{
+  id:'sides', band:'gold', eyebrow:'ON THE SIDE',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Food%20photography%20fries.jpg?width=500',
+  titleEn:'Sides', titleAr:'أطباق جانبية',
+  accents:[
+    {icon:'ic-fries', sw:['#3c7a68','#234c41'], top:'20%', side:'left', x:'3%', rot:-11, size:90},
+  ],
+  groups:[
+    {items:[
+      {en:"French Fries", ar:"بطاطا مقلية", price:"1.90"},
+      {en:"French Fries with Mixed Cheese", ar:"بطاطا مقلية مع جبنة مكس", price:"2.90"},
+      {en:"Potato Wedges", ar:"بطاطا ودج", price:"2.50"},
+      {en:"Potato Wedges with Mixed Cheese", ar:"بطاطا ودج مع جبنة مكس", price:"3.20"},
+      {en:"Mozzarella Sticks", ar:"أصابع موزاريلا", price:"3.90"},
+      {en:"Chips and Dip", ar:"شيبس اند دب", price:"3.75"},
+      {en:"Sautéed Vegetables", ar:"خضار سوتيه", price:"2.75"},
+      {en:"Chicken Breast", ar:"صدر دجاج", price:"1.55"},
+      {en:"Baked Potato", ar:"بطاطا مشوية بالفرن", price:"2.00"},
+      {en:"Add Any Sauce", ar:"إضافة أي صوص", price:"0.75"},
+    ]},
+  ]
+},
+{
+  id:'mains', band:'cream', eyebrow:'FROM THE GRILL',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Ribeye%20steak%20and%20asparagus.jpg?width=500',
+  titleEn:'Main Course', titleAr:'أطباق رئيسية',
+  accents:[
+    {icon:'ic-steak', sw:['#a9702f','#7a4e1c'], top:'10%', side:'right', x:'3%', rot:10, size:96},
+    {icon:'ic-fish', sw:['#3c7a68','#234c41'], top:'62%', side:'left', x:'2%', rot:-8, size:90},
+  ],
+  groups:[
+    {titleEn:"Chicken", titleAr:"دجاج", items:[
+      {en:"Mediterranean Chicken", ar:"دجاج ميديتيريني", desc:"Grilled chicken breast, brown mushroom sauce, sautéed vegetables and potatoes", price:"7.50"},
+      {en:"Mosaic Chicken", ar:"دجاج الموزاييك", desc:"Grilled chicken breast, special mosaic sauce, sautéed vegetables and potatoes", price:"7.50"},
+      {en:"Chicken with Lemon", ar:"دجاج بالليمون", desc:"Grilled chicken breast, lemon sauce, sautéed vegetables and potatoes", price:"7.50"},
+    ]},
+    {titleEn:"Meat", titleAr:"لحوم", items:[
+      {en:"Laila's Kofta", ar:"كفتة لبلا", desc:"Kofta cooked in tomato or tahini sauce", price:"7.50"},
+      {en:"Beef Fillet Steak", ar:"بيف فيليه ستيك", desc:"Grilled beef fillet steak, sautéed vegetables and potatoes", price:"11.75"},
+      {en:"Angus Ribeye Steak", ar:"أنجس ريب آي ستيك", desc:"Grilled ribeye steak, sautéed vegetables and potatoes", price:"22.50"},
+      {en:"Sajia Bellahma", ar:"صاجية باللحمة", price:"8.75"},
+    ]},
+    {titleEn:"Seafood", titleAr:"مأكولات بحرية", items:[
+      {en:"Salmon Fillet", ar:"سالمون فيليه", desc:"Grilled salmon fillet, capers sauce with sautéed vegetables and potatoes", price:"10.50"},
+      {en:"Fish and Chips", ar:"فيش اند تشيبس", desc:"Fried fish fillet, french fries and vegetables", price:"7.50"},
+    ]},
+  ],
+  note:"Potato options: Mashed Potato · French Fries · Potato Wedges · Baked Potato — خيارات البطاطا"
+},
+{
+  id:'drinks', band:'teal', eyebrow:'REFRESH',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Glass%20of%20Fresh%20Orange%20Juice.jpg?width=500',
+  titleEn:'Soft Drinks &amp; Juices', titleAr:'مشروبات غازية وعصائر',
+  accents:[
+    {icon:'ic-glass', sw:['#e7bd77','#a9702f'], top:'6%', side:'left', x:'2%', rot:-9, size:88},
+    {icon:'ic-juice', sw:['#5f9a86','#234c41'], top:'46%', side:'right', x:'3%', rot:12, size:90},
+    {icon:'ic-juice', sw:['#a9702f','#7a4e1c'], top:'80%', side:'left', x:'4%', rot:-15, size:80},
+  ],
+  groups:[
+    {titleEn:"Soft Drinks", titleAr:"مشروبات غازية", twoCol:true, items:[
+      {en:"Mineral Water", ar:"مياه معدنية", price:"0.90"},
+      {en:"Kinza Cola", ar:"كنزا كولا", price:"1.45"},
+      {en:"Kinza Orange", ar:"كنزا برتقال", price:"1.45"},
+      {en:"Kinza Lemon", ar:"كنزا ليمون", price:"1.45"},
+      {en:"G Drinks", ar:"مشروبات جي", price:"2.90"},
+      {en:"Barbican", ar:"باربيكان", price:"2.90"},
+      {en:"Sparkling Water", ar:"مياه غازية", price:"2.90"},
+      {en:"Red Bull", ar:"ريد بول", price:"2.90"},
+      {en:"Iced Tea (Variety of Flavors)", ar:"شاي مثلج", price:"3.00"},
+    ]},
+    {titleEn:"Fresh Juices &amp; Smoothies", titleAr:"عصائر طازجة", twoCol:true, items:[
+      {en:"Kiwi", ar:"كيوي", price:"4.00"},
+      {en:"Pineapple", ar:"أناناس", price:"4.00"},
+      {en:"Pomegranate", ar:"رمان", price:"4.00"},
+      {en:"Carrot", ar:"جزر", price:"4.00"},
+      {en:"Lemon", ar:"ليمون", price:"4.00"},
+      {en:"Orange", ar:"برتقال", price:"4.00"},
+      {en:"Mango", ar:"مانجا", price:"4.00"},
+      {en:"Strawberry", ar:"فراولة", price:"4.00"},
+    ]},
+    {titleEn:"Mixed Juices", titleAr:"عصائر مخلوطة", twoCol:true, items:[
+      {en:"Kiwi with Lemon", ar:"كيوي مع ليمون", price:"4.25"},
+      {en:"Lemon with Mint", ar:"ليمون مع نعناع", price:"4.25"},
+      {en:"Guava with Basil", ar:"جوافة مع ريحان", price:"4.25"},
+      {en:"Orange with Carrot", ar:"برتقال مع جزر", price:"4.25"},
+      {en:"Guava with Pomegranate", ar:"جوافة مع رمان", price:"4.25"},
+    ]},
+  ]
+},
+{
+  id:'cocktails', band:'gold', eyebrow:'STIRRED &amp; SHAKEN',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Cocktail%20orange%20drink%20(Unsplash).jpg?width=500',
+  titleEn:'Cocktails &amp; Mixology', titleAr:'كوكتيلات',
+  accents:[
+    {icon:'ic-cocktail', sw:['#3c7a68','#234c41'], top:'8%', side:'right', x:'3%', rot:-10, size:94},
+    {icon:'ic-cocktail', sw:['#a9702f','#7a4e1c'], top:'58%', side:'left', x:'2%', rot:11, size:88},
+  ],
+  groups:[
+    {titleEn:"Cocktails", titleAr:"كوكتيلات", items:[
+      {en:"Laila's Cocktail", ar:"كوكتيل لبلا", desc:"Orange juice, mango juice, passion fruit, ginger, mint and strawberry", price:"4.75"},
+      {en:"Lava Blue", ar:"لافا بلو", desc:"Banana, passion fruit, vanilla ice cream, mango juice and orange juice", price:"4.75"},
+      {en:"Pina Colada", ar:"بينا كولادا", desc:"Pineapple, coconut milk, pineapple juice", price:"4.75"},
+      {en:"Ginger Colada", ar:"جنجر كولادا", desc:"Pineapple juice, coconut milk, ginger and pineapple dices", price:"4.75"},
+      {en:"Vert", ar:"فيرت", desc:"Pineapple juice, green apple, passion fruit and kiwi", price:"4.75"},
+      {en:"Berry Bunny", ar:"بيري باني", desc:"Mixed berries, vanilla ice cream, orange juice and strawberries", price:"4.75"},
+      {en:"Mr. Healthy", ar:"مستر هيلثي", desc:"Orange juice, green apple, ginger, rocca and kiwi", price:"4.75"},
+    ]},
+    {titleEn:"Mixology", titleAr:"ميكسولوجي", items:[
+      {en:"Mimosa", ar:"ميموسا", desc:"Your flavor, lemon juice, cranberry juice, soda &amp; ice cream", price:"5.00"},
+      {en:"Margarita", ar:"مارغريتا", desc:"Your flavor, lemon juice &amp; triple sec", price:"5.00"},
+      {en:"California", ar:"كاليفورنيا", desc:"Cranberry juice, pineapple juice, pomegranate, coconut &amp; grenadine", price:"5.00"},
+      {en:"Blue Lady", ar:"بلو ليدي", desc:"Guava juice, coconut, blue curaçao, lemon juice &amp; soda", price:"5.00"},
+      {en:"Sunset", ar:"صن ست", desc:"Orange juice, peach, lemon juice &amp; grenadine", price:"5.00"},
+      {en:"Mojito", ar:"موهيتو", desc:"Mint, lemon juice, lemon wedges &amp; soda", price:"5.00"},
+    ]},
+  ]
+},
+{
+  id:'coffee', band:'cream', eyebrow:'ICED &amp; BLENDED',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Homemade%20Iced%20Coffee%20(3918677064).jpg?width=500',
+  titleEn:'Iced Coffee &amp; Milkshakes', titleAr:'قهوة مثلجة وميلك شيك',
+  accents:[
+    {icon:'ic-coffee', sw:['#a9702f','#7a4e1c'], top:'8%', side:'left', x:'2%', rot:-9, size:92},
+    {icon:'ic-shake', sw:['#3c7a68','#234c41'], top:'58%', side:'right', x:'3%', rot:12, size:88},
+  ],
+  groups:[
+    {titleEn:"Iced Coffee", titleAr:"قهوة مثلجة", items:[
+      {en:"Laila's Frappe", ar:"فرابيه لبلا", price:"4.00"},
+      {en:"Iced Latte", ar:"آيس لاتيه", desc:"Spanish / pistachio / regular", price:"3.50"},
+      {en:"Iced Mocha", ar:"آيس موكا", price:"3.50"},
+      {en:"Iced Caramel Macchiato", ar:"آيس كراميل ماكياتو", price:"3.50"},
+      {en:"Iced French Coffee", ar:"قهوة فرنسية مثلجة", price:"3.50"},
+      {en:"Iced Matcha Coffee", ar:"آيس ماتشا كوفي", price:"3.50"},
+      {en:"Frappe", ar:"فرابيه", desc:"Caramel / hazelnut / vanilla / chocolate / pistachio / butterscotch", price:"3.75"},
+    ]},
+    {titleEn:"Milkshakes", titleAr:"ميلك شيك", twoCol:true, items:[
+      {en:"Chocolate", ar:"شوكولاتة", price:"4.00"},
+      {en:"Vanilla", ar:"فانيلا", price:"4.00"},
+      {en:"Strawberry", ar:"فراولة", price:"4.00"},
+      {en:"Cheesecake", ar:"تشيز كيك", price:"4.00"},
+      {en:"Snickers", ar:"سنيكرز", price:"4.00"},
+      {en:"Pistachio", ar:"فستق", price:"4.00"},
+      {en:"Ferrero", ar:"فيريرو", price:"4.00"},
+      {en:"Oreo", ar:"أوريو", price:"4.00"},
+      {en:"Arabia", ar:"عربية", price:"4.00"},
+      {en:"Krocan", ar:"كروكان", price:"4.00"},
+    ]},
+  ]
+},
+{
+  id:'hot-drinks', band:'teal', eyebrow:'WARM CUPS',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Cappuccino.jpg?width=500',
+  titleEn:'Hot Drinks', titleAr:'مشروبات ساخنة',
+  accents:[
+    {icon:'ic-hot', sw:['#e7bd77','#a9702f'], top:'10%', side:'right', x:'3%', rot:10, size:92},
+    {icon:'ic-hot', sw:['#5f9a86','#234c41'], top:'62%', side:'left', x:'2%', rot:-11, size:86},
+  ],
+  groups:[
+    {twoCol:true, items:[
+      {en:"Black Tea", ar:"شاي أسود", price:"1.90"},
+      {en:"Green Tea", ar:"شاي أخضر", price:"1.90"},
+      {en:"Herbal Tea", ar:"أعشاب", price:"2.25"},
+      {en:"Moroccan Tea", ar:"شاي مغربي", price:"2.75"},
+      {en:"Hot Chocolate", ar:"هوت شوكلت", price:"3.00"},
+      {en:"Ginger &amp; Honey", ar:"زنجبيل مع عسل", price:"3.00"},
+      {en:"Turkish Coffee (Single)", ar:"قهوة تركية سنجل", price:"2.25"},
+      {en:"Turkish Coffee (Double)", ar:"قهوة تركية دبل", price:"3.00"},
+      {en:"Espresso (Single)", ar:"إسبريسو سنجل", price:"2.75"},
+      {en:"Espresso (Double)", ar:"إسبريسو دبل", price:"3.25"},
+      {en:"Espresso Doppio", ar:"إسبريسو دوبيو", price:"2.90"},
+      {en:"American", ar:"أمريكان", price:"2.75"},
+      {en:"Americano", ar:"أمريكانو", price:"3.00"},
+      {en:"Latte", ar:"لاتيه", price:"3.00"},
+      {en:"Spanish Latte", ar:"سبانش لاتيه", price:"3.25"},
+      {en:"Cappuccino", ar:"كابتشينو", price:"3.00"},
+      {en:"Caramel Macchiato", ar:"كراميل ماكياتو", price:"3.50"},
+      {en:"French Coffee", ar:"قهوة فرنسية", price:"3.50"},
+      {en:"Matcha Coffee", ar:"ماتشا كوفي", price:"3.00"},
+      {en:"Mocha Coffee", ar:"موكا", price:"3.00"},
+      {en:"Hawaii Coffee", ar:"هاواي كوفي", price:"3.00"},
+      {en:"Sahlab", ar:"سحلب", price:"3.00"},
+      {en:"Any Additional Flavor", ar:"إضافة أي نكهة", price:"0.50"},
+    ]},
+  ]
+},
+{
+  id:'desserts', band:'gold', eyebrow:'SWEET FINISH',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Delicious%20slice%20of%20cake%20with%20cream.jpg?width=500',
+  titleEn:'Desserts &amp; Ice Cream', titleAr:'حلويات وآيس كريم',
+  accents:[
+    {icon:'ic-cake', sw:['#3c7a68','#234c41'], top:'8%', side:'left', x:'2%', rot:-8, size:92},
+    {icon:'ic-icecream', sw:['#a9702f','#7a4e1c'], top:'58%', side:'right', x:'3%', rot:12, size:90},
+  ],
+  groups:[
+    {titleEn:"Desserts", titleAr:"حلويات", twoCol:true, items:[
+      {en:"Lazy Cake", ar:"لايزي كيك", price:"4.25"},
+      {en:"Red Velvet", ar:"ريد فلفت", price:"4.25"},
+      {en:"Tiramisu", ar:"تيراميسو", price:"4.25"},
+      {en:"San Sebastian", ar:"سان سباستيان", price:"4.25"},
+      {en:"Date Cake", ar:"كيكة التمر", price:"4.25"},
+      {en:"Pecan Cake", ar:"كيكة الجوز", price:"4.25"},
+      {en:"German Cake", ar:"كيكة ألمانية", price:"4.25"},
+      {en:"Brownies", ar:"براونيز", price:"4.25"},
+      {en:"Apple Pie", ar:"فطيرة التفاح", price:"4.25"},
+      {en:"Carrot Cake", ar:"كيكة الجزر", price:"4.25"},
+      {en:"Cheesecake", ar:"تشيز كيك", price:"4.25"},
+      {en:"Chocolate Fondue", ar:"فوندو الشوكولاتة", price:"4.25"},
+    ]},
+    {titleEn:"Ice Cream — Regular", titleAr:"آيس كريم عادي", items:[
+      {en:"Chocolate", ar:"شوكولاتة", price:"2.75"},
+      {en:"Vanilla", ar:"فانيلا", price:"2.75"},
+      {en:"Strawberry", ar:"فراولة", price:"2.75"},
+    ]},
+    {titleEn:"Ice Cream — Special", titleAr:"آيس كريم خاص", items:[
+      {en:"Cheesecake", ar:"تشيز كيك", price:"3.00"},
+      {en:"Croquant", ar:"كروكان", price:"3.00"},
+      {en:"Arabic", ar:"عربي", price:"3.00"},
+      {en:"Snickers", ar:"سنيكرز", price:"3.00"},
+      {en:"Oreo", ar:"أوريو", price:"3.00"},
+      {en:"Ferrero", ar:"فيريرو", price:"3.00"},
+      {en:"Pistachio", ar:"فستق", price:"3.00"},
+    ]},
+  ]
+},
+{
+  id:'shisha', band:'cream', eyebrow:'UNWIND',
+  img:'https://commons.wikimedia.org/wiki/Special:FilePath/Hookah%202.jpg?width=500',
+  titleEn:'Shisha', titleAr:'أرجيلة',
+  accents:[
+    {icon:'ic-shisha', sw:['#a9702f','#7a4e1c'], top:'8%', side:'right', x:'3%', rot:-6, size:100},
+    {icon:'ic-shisha', sw:['#3c7a68','#234c41'], top:'62%', side:'left', x:'2%', rot:8, size:86},
+  ],
+  groups:[
+    {items:[
+      {en:"Laila's Shisha", ar:"أرجيلة لبلا", price:"7.00"},
+      {en:"Nakhla Two Apples", ar:"نخلة تفاحتين", price:"6.25"},
+      {en:"Al-Fakher Two Apples", ar:"الفاخر تفاحتين", price:"6.25"},
+    ]},
+    {titleEn:"House Flavors", titleAr:"نكهات المحل", twoCol:true, items:[
+      {en:"Mazaya Two Apples", ar:"مزايا تفاحتين", price:"5.25"},
+      {en:"Lemon and Mint", ar:"ليمون ونعناع", price:"5.25"},
+      {en:"Gum and Cinnamon", ar:"علكة وقرفة", price:"5.25"},
+      {en:"Grapes and Mint", ar:"عنب ونعناع", price:"5.25"},
+      {en:"Watermelon and Mint", ar:"بطيخ ونعناع", price:"5.25"},
+      {en:"Grapes", ar:"عنب", price:"5.25"},
+      {en:"Mint", ar:"نعناع", price:"5.25"},
+      {en:"Grapes and Berries", ar:"عنب وبري", price:"5.25"},
+      {en:"Blueberry", ar:"بلوبيري", price:"5.25"},
+      {en:"Candy", ar:"كاندي", price:"5.25"},
+      {en:"Love", ar:"لوف", price:"5.25"},
+      {en:"Ruby Crush", ar:"روبي كراش", price:"5.25"},
+      {en:"Mastic", ar:"مستكة", price:"5.25"},
+      {en:"Gum and Mint", ar:"علكة ونعناع", price:"5.25"},
+      {en:"Salem Gum", ar:"علكة سالم", price:"5.25"},
+      {en:"English", ar:"إنجليزي", price:"5.25"},
+      {en:"Orange and Mint", ar:"برتقال ونعناع", price:"5.25"},
+      {en:"Special Mix", ar:"سبيشل مكس", price:"5.25"},
+      {en:"Mango and Peach", ar:"مانجا ودراق", price:"5.25"},
+      {en:"Cherry and Mint", ar:"كرز ونعناع", price:"5.25"},
+      {en:"Pomelo and Mint", ar:"بوملي ونعناع", price:"5.25"},
+    ]},
+    {items:[
+      {en:"Change Head", ar:"تغيير رأس الأرجيلة", price:"2.25"},
+    ]},
+  ]
+},
+];
+
+/* ================= PAGINATION ================= */
+function paginate(sections){
+  const pages = [];
+  sections.forEach(sec=>{
+    const secEn = sec.titleEn.replace(/&amp;/g,'&');
+    let introDone = false;
+    sec.groups.forEach(g=>{
+      const items = g.items;
+      let idx = 0;
+      let firstChunkOfGroup = true;
+      while(idx < items.length){
+        const isVeryFirst = !introDone;
+        const limit = isVeryFirst ? 4 : 6;
+        const chunk = items.slice(idx, idx+limit);
+        idx += limit;
+        pages.push({
+          sectionId: sec.id,
+          sectionTitleEn: secEn,
+          sectionTitleAr: sec.titleAr,
+          groupTitleEn: firstChunkOfGroup ? (g.titleEn||null) : null,
+          groupTitleAr: firstChunkOfGroup ? (g.titleAr||null) : null,
+          items: chunk,
+          showSectionTitle: isVeryFirst,
+          showPhoto: isVeryFirst,
+          img: isVeryFirst ? sec.img : null,
+        });
+        introDone = true;
+        firstChunkOfGroup = false;
+      }
+    });
+    if(sec.note && pages.length){
+      pages[pages.length-1].note = sec.note;
+    }
+  });
+  pages.push({closing:true});
+  return pages;
+}
+
+const PAGES = paginate(SECTIONS);
+const BAND_CYCLE = ['teal','gold','cream'];
+
+function renderRow(it){
+  return `<div class="row">
+    <div class="row-top">
+      <div class="row-name">${it.en}<span class="ar">${it.ar}</span></div>
+      <div class="row-price">${it.price} <span style="font-size:.7em;opacity:.7;">J.D</span></div>
+    </div>
+    ${it.desc?`<div class="row-desc">${it.desc}</div>`:''}
+  </div>`;
+}
+
+function renderContentPage(p, band, pageNum){
+  let html = `<div class="page-run">${p.sectionTitleEn}</div>`;
+  if(p.showSectionTitle){
+    html += `<div class="page-title"><h3 class="display">${p.sectionTitleEn}</h3><span class="ar">${p.sectionTitleAr}</span><div class="rule"></div></div>`;
+  }
+  if(p.showPhoto && p.img){
+    html += `<div class="photo-tip torn-a"><img src="${p.img}" loading="lazy" alt=""></div>`;
+  }
+  if(p.groupTitleEn){
+    html += `<div class="group-title">${p.groupTitleEn}<span class="ar">${p.groupTitleAr||''}</span></div>`;
+  }
+  html += p.items.map(renderRow).join('');
+  if(p.note){
+    html += `<div style="font-size:.6rem;opacity:.6;text-align:center;margin-top:10px;font-style:italic;">${p.note}</div>`;
+  }
+  html += `<div class="page-num">${pageNum}</div>`;
+  return `<div class="page band-${band}">${html}</div>`;
+}
+
+function renderClosingPage(band){
+  return `<div class="page band-${band}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <div class="script" style="font-size:2.4rem;">Laila</div>
+    <div style="font-family:'Cairo',sans-serif; font-size:.62rem; letter-spacing:.25em; opacity:.8; margin-top:2px;">RESTAURANT &amp; CAFÉ</div>
+    <div style="font-style:italic; font-size:.8rem; margin-top:16px; opacity:.9;">Thank you for dining with us</div>
+    <div class="ar" style="font-size:.72rem; margin-top:4px; opacity:.9;">شكراً لزيارتكم</div>
+    <div style="width:34px;height:2px;background:currentColor;opacity:.4;margin:16px auto;border-radius:2px;"></div>
+    <div style="font-family:'Cairo',sans-serif; font-size:.65rem; opacity:.85; direction:ltr;">0792345655</div>
+    <div class="ar" style="font-size:.62rem; opacity:.8; margin-top:3px;">Mecca Street - behind Hejaz Towers</div>
+    <div style="font-family:'Cairo',sans-serif; font-size:.62rem; opacity:.8; margin-top:6px;">@laila.restaurantcafe</div>
+  </div>`;
+}
+
+function renderBlankPage(band){
+  return `<div class="page band-${band} blank">
+    <svg width="46" height="46" viewBox="0 0 40 40" style="opacity:.35">
+      <path d="M8 30 C8 14 22 6 34 8 C32 22 22 34 8 30 Z" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M8 30 L26 12" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    </svg>
+  </div>`;
+}
+
+/* Build spreads: pair pages 0&1, 2&3, ... */
+const spreadsRoot = document.getElementById('spreadsRoot');
+const totalSpreads = Math.ceil(PAGES.length/2);
+let spreadEls = [];
+
+for(let s=0; s<totalSpreads; s++){
+  const leftBand = BAND_CYCLE[s%3];
+  const rightBand = BAND_CYCLE[(s+1)%3];
+  const leftPage = PAGES[s*2];
+  const rightPage = PAGES[s*2+1];
+
+  const leftHtml = leftPage
+    ? (leftPage.closing ? renderClosingPage(leftBand) : renderContentPage(leftPage, leftBand, s*2+1))
+    : renderBlankPage(leftBand);
+  const rightHtml = rightPage
+    ? (rightPage.closing ? renderClosingPage(rightBand) : renderContentPage(rightPage, rightBand, s*2+2))
+    : renderBlankPage(rightBand);
+
+  const div = document.createElement('div');
+  div.className = 'spread';
+  div.innerHTML = wrapPage(leftHtml, 'left') + wrapPage(rightHtml, 'right')
+    + '<div class="tap-zone tz-left" title="Previous"></div>'
+    + '<div class="tap-zone tz-right" title="Next"></div>';
+  spreadsRoot.appendChild(div);
+  spreadEls.push(div);
+}
+
+function wrapPage(innerPageHtml, side){
+  // innerPageHtml already is a full `<div class="page band-x ...">...</div>` string; inject side class
+  return innerPageHtml.replace('class="page', `class="page ${side}`);
+}
+
+/* ================= BOOK CONTROLLER ================= */
+const bookStage = document.getElementById('bookStage');
+const book = document.getElementById('book');
+const cover = document.getElementById('cover');
+const navPrev = document.getElementById('navPrev');
+const navNext = document.getElementById('navNext');
+const navClose = document.getElementById('navClose');
+const pageIndicator = document.getElementById('pageIndicator');
+
+let currentSpread = 0;
+let isOpen = false;
+let animating = false;
+
+function sizeBook(mode){
+  const rect = bookStage.getBoundingClientRect();
+  const availW = rect.width * 0.86;
+  const availH = rect.height * 0.86;
+  const aspect = mode === 'open' ? (3/2) : (3/4); // width/height
+  let h = availH;
+  let w = h * aspect;
+  if(w > availW){ w = availW; h = w / aspect; }
+  book.style.width = w + 'px';
+  book.style.height = h + 'px';
+}
+
+function updateNav(){
+  navPrev.classList.toggle('show', isOpen && currentSpread > 0);
+  navNext.classList.toggle('show', isOpen && currentSpread < totalSpreads-1);
+  navClose.classList.toggle('show', isOpen);
+  pageIndicator.classList.toggle('show', isOpen);
+  pageIndicator.textContent = (currentSpread+1) + ' / ' + totalSpreads;
+}
+
+function showSpread(idx){
+  spreadEls.forEach((el,i)=> el.classList.toggle('active', i===idx));
+  currentSpread = idx;
+  updateNav();
+}
+
+/* Real page-turn transition between two spreads */
+function turnTo(idx, direction){
+  if(animating || idx<0 || idx>=totalSpreads || idx===currentSpread) return;
+  animating = true;
+  const oldEl = spreadEls[currentSpread];
+  const newEl = spreadEls[idx];
+  const exitCls = direction==='fwd' ? 'exit-fwd' : 'exit-back';
+  const enterCls = direction==='fwd' ? 'enter-fwd' : 'enter-back';
+
+  newEl.classList.add(enterCls);
+  // force reflow so the enter starting transform applies before animating to active
+  void newEl.offsetWidth;
+
+  oldEl.classList.remove('active');
+  oldEl.classList.add(exitCls);
+  newEl.classList.remove(enterCls);
+  newEl.classList.add('active');
+
+  currentSpread = idx;
+  updateNav();
+
+  setTimeout(()=>{
+    oldEl.classList.remove(exitCls, 'active');
+    animating = false;
+  }, 780);
+}
+
+function goNext(){ if(currentSpread<totalSpreads-1) turnTo(currentSpread+1, 'fwd'); }
+function goPrev(){ if(currentSpread>0) turnTo(currentSpread-1, 'back'); }
+
+function openBook(){
+  isOpen = true;
+  cover.classList.add('opening');
+  sizeBook('open');
+  setTimeout(()=>{
+    cover.style.visibility = 'hidden';
+    showSpread(0);
+  }, 520);
+}
+
+function closeBook(){
+  isOpen = false;
+  spreadEls.forEach(el => el.classList.remove('active','exit-fwd','exit-back','enter-fwd','enter-back'));
+  cover.style.visibility = 'visible';
+  cover.classList.remove('opening');
+  sizeBook('closed');
+  currentSpread = 0;
+  updateNav();
+}
+
+cover.addEventListener('click', openBook);
+navClose.addEventListener('click', closeBook);
+navPrev.addEventListener('click', goPrev);
+navNext.addEventListener('click', goNext);
+
+/* Tap the corner/edge of a page to flip it, like a real book */
+spreadsRoot.addEventListener('click', (e)=>{
+  if(!isOpen) return;
+  const zone = e.target.closest('.tap-zone');
+  if(!zone) return;
+  if(zone.classList.contains('tz-right')) goNext();
+  else goPrev();
+});
+
+document.addEventListener('keydown', (e)=>{
+  if(!isOpen) return;
+  if(e.key==='ArrowLeft') goPrev();
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='Escape') closeBook();
+});
+
+let touchStartX = null;
+book.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; }, {passive:true});
+book.addEventListener('touchend', e=>{
+  if(touchStartX===null || !isOpen) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 60){
+    if(dx < 0) goNext(); else goPrev();
+  }
+  touchStartX = null;
+}, {passive:true});
+
+window.addEventListener('resize', ()=> sizeBook(isOpen ? 'open' : 'closed'));
+
+sizeBook('closed');
+updateNav();
+</script>
+</body>
+</html>
